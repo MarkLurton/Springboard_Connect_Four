@@ -196,4 +196,6 @@ newGameButton.addEventListener("click", function(event) {
   gameOver = 0;
   makeBoard();
   makeHtmlBoard();
+  currPlayer = 1;
+  nextPlayer = 2;
 })
