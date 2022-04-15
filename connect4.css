@@ -1,0 +1,118 @@
+/* game board table */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to right, rgb(166, 45, 191), rgb(8, 95, 188));
+  font-family:Georgia, 'Times New Roman', Times, serif
+}
+div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#board {
+  overflow: hidden;
+}
+#scoreboard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: fit-content;
+}
+
+#scoreboard .player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: slategray;
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 500px;
+}
+
+
+#board td {
+  width: 50px;
+  height: 50px;
+  border: solid 1px #666;
+  background-color: rgba(0,0,0, .5);
+}
+
+/* pieces are div within game table cells: draw as colored circles */
+
+.piece {
+  border-radius: 100px;
+  margin: 5px;
+  width: 80%;
+  height: 80%;
+  animation-duration: 1s;
+  animation-name: piece-drop;
+}
+
+@keyframes piece-drop {
+  from { 
+    transform: translateY(-1000%)
+  }
+  
+  to {
+    transform: translateY(0px)
+  }
+}
+
+
+.one {
+  background-color: red;
+}
+
+.two {
+  background-color: blue;
+}
+
+/* column-top is table row of clickable areas for each column */
+
+#column-top-red td {
+  border: dashed 1px lightgray;
+}
+
+#column-top-blue td {
+  border: dashed 1px lightgray;
+}
+
+#column-top-red td:hover {
+  background-color: rgba(255,0,0, 0.8);
+  border-radius: 100px;
+}
+
+#column-top-blue td:hover {
+  background-color: rgba(0,0,255, 0.8);
+  border-radius: 100px;
+}
+
+#newGame {
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+#red {
+  color: red;
+}
+
+#blue {
+  color: blue;
+}
+
+.count {
+  background-color: white;
+  border: solid black 1px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  width: 30px;
+  text-align: center;
+}
