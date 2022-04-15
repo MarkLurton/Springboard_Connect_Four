@@ -10,7 +10,7 @@ const HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2
 let nextPlayer = 2;
-let gameOver = 0;
+let gameOver = 0; // Variable to stop users from continuing to play on board if game is over
 let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 /** makeBoard: create in-JS board structure:
@@ -20,7 +20,7 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
 function makeBoard() {
   for (let i = 0; i < 6; i++) {
     board.push([]);
-    for (let j = 0; j < 7; j ++) {
+    for (let j = 0; j < 7; j++) {
       board[i].push(undefined);
     }
   }
@@ -116,10 +116,12 @@ function handleClick(evt) {
   if (checkForWin()) {
     gameOver = 1;
     if (currPlayer === 1) {
+      // Update win count in local storage and update scoreboard
       const wins1 = parseInt(document.querySelector('#wins1').innerText) + 1;
       localStorage.setItem('wins1', JSON.stringify({'wins1': wins1}));
       setTimeout(function() {document.querySelector('#wins1').innerText = wins1}, 1100);
     } else {
+      // Update win count in local storage and update scoreboard
       const wins2 = parseInt(document.querySelector('#wins2').innerText) + 1;
       localStorage.setItem('wins2', JSON.stringify({'wins2': wins2}));
       setTimeout(function() {document.querySelector('#wins2').innerText = wins2}, 1100);
@@ -128,15 +130,21 @@ function handleClick(evt) {
   }
 
   // check for tie
-  let tieCheck = 0;
-  for (let row of board) {
-    for (let space of row) {
-      if (!space) {
-        tieCheck = 1;
+  let tieCheck = () => {
+
+    // Loop through board looking for an empty space. If one is found,
+    // return 1, if not return 0.
+    for (let row of board) {
+      for (let space of row) {
+        if (!space) {
+          return 1;
+        }
       }
     }
+    return 0;
   }
-  if (!tieCheck) {
+  // If game is tied alert user and end game.
+  if (!tieCheck()) {
     gameOver = 1;
     endGame('Wow! This game ends in a tie!');
   }
@@ -187,11 +195,15 @@ makeBoard();
 makeHtmlBoard();
 
 const newGameButton = document.querySelector('#newGame')
-newGameButton.addEventListener("click", function(event) {
+newGameButton.addEventListener("click", function() {
+
+  // Clear board
   const delTable = document.querySelector('#board');
   while (delTable.hasChildNodes()) {
     delTable.removeChild(delTable.firstChild);
   }
+
+  // Reset to beginning values upon newGame press
   board = [];
   gameOver = 0;
   makeBoard();
