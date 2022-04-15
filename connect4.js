@@ -97,10 +97,10 @@ function endGame(msg) {
 function handleClick(evt) {
   if (gameOver) return;
   // get x from ID of clicked cell
-  let x = +evt.target.id;
+  const x = +evt.target.id;
 
   // get next spot in column (if none, ignore click)
-  let y = findSpotForCol(x);
+  const y = findSpotForCol(x);
   if (y === null) {
     return;
   }
